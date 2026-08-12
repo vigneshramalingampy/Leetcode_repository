@@ -1,12 +1,28 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        longer =0
-        sss = ""
+        result = ""
+
         for i in range(len(s)):
-            new_s = s[i:]
-            while(new_s !=""):
-                if (new_s == new_s[::-1] and len(new_s)>longer):
-                    longer = len(new_s)
-                    sss = new_s
-                new_s=new_s[:-1]
-        return sss
+
+            # Odd length palindrome
+            left = right = i
+
+            while left >= 0 and right < len(s) and s[left] == s[right]:
+                if right - left + 1 > len(result):
+                    result = s[left:right + 1]
+
+                left -= 1
+                right += 1
+
+            # Even length palindrome
+            left = i
+            right = i + 1
+
+            while left >= 0 and right < len(s) and s[left] == s[right]:
+                if right - left + 1 > len(result):
+                    result = s[left:right + 1]
+
+                left -= 1
+                right += 1
+
+        return result
